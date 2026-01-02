@@ -1,6 +1,7 @@
 import axios from 'axios';
 const API = axios.create({
-  baseURL: 'http://localhost:5001/api',
+  // baseURL: 'http://localhost:5001/api',
+  baseURL:'https://todolist-backend-iota.vercel.app/api',
   timeout: 10000,
   withCredentials: true,
 });
