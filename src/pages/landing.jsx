@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, Sparkles, Zap, Shield, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const GlassButton = ({ children, variant = "primary", size = "md", className = "", onClick, ...props }) => {
   const baseStyles = "relative overflow-hidden rounded-xl font-medium transition-all duration-300 backdrop-blur-xl border flex items-center justify-center gap-2";
@@ -48,13 +49,14 @@ const FeatureCard = ({ icon: Icon, title, description }) => {
 
 const LandingPage = () => {
   const [currentPage, setCurrentPage] = useState("landing");
+  const navigate = useNavigate();
 
   if (currentPage === "login") {
-    return <LoginPage onNavigate={setCurrentPage} />;
+    return <LoginPage onNavigate={navigate('/login')} />;
   }
 
   if (currentPage === "signup") {
-    return <SignupPage onNavigate={setCurrentPage} />;
+    return <SignupPage onNavigate={navigate('/signup')} />;
   }
 
   return (
