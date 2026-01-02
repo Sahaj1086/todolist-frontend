@@ -5,6 +5,8 @@ import GlassButton from "../components/ui/GlassButton";
 import GlassInput from "../components/ui/GlassInput";
 import GlassCard from "../components/ui/GlassCard";
 import { useToast } from "../hooks/use-toast";
+import { signup } from "../api/auth";
+
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -14,24 +16,38 @@ const Signup = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    // Simulated signup
-    setTimeout(() => {
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userName", name || "User");
+  try {
+    const res = await signup({
+      name,
+      email,
+      password,
+    });
 
-      toast({
-        title: "Account created!",
-        description: "Redirecting to your dashboard...",
-      });
+    // Expected backend response:
+    // { token: "...", user: { name: "John" } }
 
-      navigate("/dashboard");
-      setIsLoading(false);
-    }, 1000);
-  };
+    toast({
+      title: "Account created!",
+      description: "Redirecting to your dashboard...",
+    });
+
+    navigate("/login");
+  } catch (error) {
+    toast({
+      title: "Signup failed",
+      description:
+        error.response?.data?.message || "Something went wrong",
+      variant: "destructive",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-mesh flex items-center justify-center p-4">
