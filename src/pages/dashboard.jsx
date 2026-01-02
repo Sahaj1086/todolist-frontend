@@ -89,7 +89,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold text-foreground mb-2">
-                  Dashboard
+                  Dashboard 👋
                 </h1>
                 <p className="text-muted-foreground">
                   {message}
